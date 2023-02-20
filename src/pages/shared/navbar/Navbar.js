@@ -22,8 +22,10 @@ const Navbar = () => {
         >
           {colorTheme === "dark" ? darkIcon : lightIcon}
         </div>
-        <Link to="/login">Login</Link>
       </nav>
+      <div className="absolute rounded-md px-4 py-1 right-10 top-4 text-white bg-sky-500 ">
+        <Link to="/login">Login</Link>
+      </div>
     </div>
   );
 };
