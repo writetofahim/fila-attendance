@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/logo/Untitled-1.png";
+import { AuthContext } from "../../../context/AuthContext";
 import useColorTheme from "../../../hooks/useColorTheme";
 
 const Navbar = () => {
   const [colorTheme, setTheme] = useColorTheme();
+  const { dispatch, user } = useContext(AuthContext);
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+    dispatch({ type: "LOGOUT" });
+  };
   return (
     <div className="px-5 flex justify-between  sticky top-0 z-40 border-b dark:border-gray-700 bg-slate-50/60 backdrop-blur-2xl transition-colors duration-500 dark:bg-[#0B1120]/80 dark:text-white">
       <nav className="flex justify-between  w-full px-5 items-center   ">
@@ -23,14 +30,26 @@ const Navbar = () => {
           {colorTheme === "dark" ? darkIcon : lightIcon}
         </div>
       </nav>
-      <div className=" py-4 ">
-        <Link
-          className="rounded-md px-4 py-1   text-white bg-sky-500"
-          to="/login"
-        >
-          Login
-        </Link>
-      </div>
+      {user ? (
+        <div className=" py-4 flex gap-2 items-center">
+          <span>{user.fullName}</span>
+          <button
+            className="rounded-md px-4 py-1   text-white bg-sky-500"
+            onClick={logout}
+          >
+            Logout
+          </button>
+        </div>
+      ) : (
+        <div className=" py-4 ">
+          <Link
+            className="rounded-md px-4 py-1   text-white bg-sky-500"
+            to="/login"
+          >
+            Login
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,10 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Calendar from "../../assets/calendar/calendar";
 import Clock from "../../assets/clock/Clock";
+import { AuthContext } from "../../context/AuthContext";
 
 const Attendance = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
+  const { dispatch, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      console.log("user", user);
+      navigate("/login");
+    }
+
+    return () => {};
+  }, [user]);
   useEffect(() => {
     fetch("http://localhost:5000/attendance")
       .then((res) => res.json())
@@ -16,11 +29,17 @@ const Attendance = () => {
         setError(`The error is: ${err.message}`);
       });
   }, []);
-  const handlePunchIn = () => {
-    const attendance = { name: "motalib", age: 32, date: new Date() };
+  const handlePunchIn = async () => {
+    const res = await fetch("https://api.db-ip.com/v2/free/self");
+    const data = await res.json();
+    console.log(data);
+    const attendance = { userName: user.userName, ip: data.ipAddress };
     fetch("http://localhost:5000/attendance", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
       body: JSON.stringify(attendance),
     });
   };
