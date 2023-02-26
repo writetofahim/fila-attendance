@@ -14,14 +14,14 @@ const Navbar = () => {
   };
   return (
     <div className="px-5 flex justify-between  sticky top-0 z-40 border-b dark:border-gray-700 bg-slate-50/60 backdrop-blur-2xl transition-colors duration-500 dark:bg-[#0B1120]/80 dark:text-white">
-      <nav className="flex justify-between  w-full px-5 items-center   ">
+      <nav className="flex justify-between w-full md:px-5 px-2 items-center   ">
         <div>
           <Link to="/">
             <img className=" object-contain h-16 w-full" src={logo} alt="" />
           </Link>
         </div>
         <div>
-          <h1 className="text-3xl font-bold">FILASCO America LLC</h1>
+          <h1 className="md:text-3xl text-xs font-bold">FILASCO America LLC</h1>
         </div>
         <div
           onClick={() => setTheme(colorTheme)}
@@ -32,7 +32,7 @@ const Navbar = () => {
       </nav>
       {user ? (
         <div className=" py-4 flex gap-2 items-center">
-          <span>{user.fullName}</span>
+          <span className="w-[max-content] mr-2">{user.fullname}</span>
           <button
             className="rounded-md px-4 py-1   text-white bg-sky-500"
             onClick={logout}
@@ -59,7 +59,7 @@ const lightIcon = (
   <svg
     stroke="currentColor"
     fill="currentColor"
-    stroke-width="0"
+    strokeWidth="0"
     viewBox="0 0 16 16"
     height="1em"
     width="1em"
@@ -73,7 +73,7 @@ const darkIcon = (
   <svg
     stroke="currentColor"
     fill="currentColor"
-    stroke-width="0"
+    strokeWidth="0"
     viewBox="0 0 16 16"
     height="1em"
     width="1em"
