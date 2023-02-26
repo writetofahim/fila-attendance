@@ -32,7 +32,7 @@ const Navbar = () => {
       </nav>
       {user ? (
         <div className=" py-4 flex gap-2 items-center">
-          <span className="w-[max-content] mr-2">{user.fullname}</span>
+          <span className="w-[max-content] mr-2">{user.user}</span>
           <button
             className="rounded-md px-4 py-1   text-white bg-sky-500"
             onClick={logout}

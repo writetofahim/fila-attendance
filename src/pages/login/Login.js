@@ -28,7 +28,7 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (!data.error) {
+        if (!data.error && data.user) {
           dispatch({ type: "LOGIN", payload: data.user });
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("accessToken", data.token);
@@ -38,6 +38,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
+        console.log(err);
         setHasError(true);
       });
   };
